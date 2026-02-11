@@ -28,26 +28,26 @@ const int dir[4][2] = {1, 0, 0, 1, -1, 0, 0, -1};
 class Solution
 {
 public:
-    int countBalls(int lowLimit, int highLimit)
+    int countBalls(int l, int r)
     {
-        string num1 = to_string(lowLimit), num2 = to_string(highLimit);
+        string num1 = to_string(l), num2 = to_string(r);
         int n = num2.size();
         num1.insert(num1.begin(), n - num1.size(), '0');
         vec dp(n, vec<int>(9 * n + 1, -1));
-        auto dfs = [&](this auto &&dfs, int wei, int sum, bool limit_low, bool limit_high) -> int
+        auto dfs = [&](this auto &&dfs, int wei, int sum, bool lml, bool lmr) -> int
         {
             if (sum < 0)
                 return 0;
             if (wei == n)
                 return sum == 0;
-            if (!limit_low && !limit_high && dp[wei][sum] != -1)
+            if (!lml && !lmr && dp[wei][sum] != -1)
                 return dp[wei][sum];
-            int lo = limit_low ? num1[wei] - '0' : 0;
-            int hi = limit_high ? num2[wei] - '0' : 9;
+            int lo = lml ? num1[wei] - '0' : 0;
+            int hi = lmr ? num2[wei] - '0' : 9;
             int res = 0;
             for (int i = lo; i <= hi; i++)
-                res = (res + dfs(wei + 1, sum - i, limit_low && i == lo, limit_high && i == hi)) % mod;
-            if (!limit_low && !limit_high)
+                res = (res + dfs(wei + 1, sum - i, lml && i == lo, lmr && i == hi)) % mod;
+            if (!lml && !lmr)
                 dp[wei][sum] = res;
             return res;
         };

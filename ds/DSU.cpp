@@ -34,15 +34,4 @@ struct DSU
     bool same(int a, int b) { return find(a) == find(b); }
 
     int sz(int a) { return size[find(a)]; }
-
-    friend ostream &operator<<(ostream &os, DSU &dsu)
-    {
-        os << "DSU[";
-        for (int i = 1; i <= dsu.n; i++)
-        {
-            os << '(' << i << ',' << dsu.find(i) << ')' << ' ';
-        }
-        os << ']';
-        return os;
-    }
 };

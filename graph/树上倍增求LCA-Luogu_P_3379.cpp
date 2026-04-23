@@ -36,6 +36,8 @@ const int bs = 433;
 const vec<vec<int>> dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const double eps = 1e-6;
 
+
+
 void cold_beans()
 {
     int n, m, s;

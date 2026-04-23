@@ -5,9 +5,9 @@ ll fpow(ll a, ll b)
     while (b)
     {
         if (b & 1)
-            ans = (ans * a) % mod;
+            ans = ans * a % mod;
         b >>= 1;
-        a = (a * a) % mod;
+        a = a * a % mod;
     }
     return ans;
 }
@@ -21,12 +21,11 @@ void initc(int n)
     jc[0] = 1;
     for (int i = 1; i < n; i++)
         jc[i] = jc[i - 1] * i % mod;
-    ijc[n - 1] = inv(jc[n - 1]); // 使用您的inv函数求逆元
+    ijc[n - 1] = inv(jc[n - 1]); 
     for (int i = n - 2; i >= 0; i--)
         ijc[i] = ijc[i + 1] * (i + 1) % mod;
 }
 
-// 查询组合数C(n, k)
 ll C(int n, int k)
 {
     if (k < 0 || k > n)

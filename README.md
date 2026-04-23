@@ -55,7 +55,8 @@ g++ -std=c++23 -O2 -Wall -Wextra -o main filename.cpp && ./a.out
 
 
 **提示**  
-- 需要 C++23 及以上  
+- 可能需要header file(在misc目录下)
+- 可能需要 C++23 及以上  
 - 模板里如果用到 `__int128`，请确保评测机支持，否则自行改 `long long`
 
 ## 更新节奏

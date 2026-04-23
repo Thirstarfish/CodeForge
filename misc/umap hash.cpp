@@ -11,8 +11,5 @@ struct chash
 
 struct chash
 {
-    std::size_t operator()(const std::array<int, 2> &arr) const
-    {
-        return std::hash<int>{}(arr[0]) ^ (std::hash<int>{}(arr[1]) << 2);
-    }
+    std::size_t operator()(const std::array<int, 2> &arr) const { return std::hash<int>{}(arr[0]) ^ (std::hash<int>{}(arr[1]) << 2); }
 };

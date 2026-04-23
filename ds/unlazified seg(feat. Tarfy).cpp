@@ -20,6 +20,7 @@ struct seg
 
     inline int ls(int k) { return k << 1; }
     inline int rs(int k) { return k << 1 | 1; }
+    inline void pushup(int k) { t[k] = t[ls(k)] + t[rs(k)]; }
 
     seg(int n)
     {
@@ -36,11 +37,6 @@ struct seg
             w[i] = in[i];
         t.resize((n << 2) + 1);
         build(1, n);
-    }
-
-    inline void pushup(int k)
-    {
-        t[k] = t[ls(k)] + t[rs(k)];
     }
 
     inline void update(int k, T v)
@@ -77,6 +73,36 @@ struct seg
         pushup(k);
     }
 
+    int queryL(int k, int x, T ax)
+    {
+        int mid = t[k].l + t[k].r >> 1;
+        if (t[k].w < ax)
+            return t[k].r + 1;
+        if (t[k].l == t[k].r)
+            return t[k].l;
+        if (mid < x)
+            return queryL(rs(k), x, ax);
+        int ans = queryL(ls(k), x, ax);
+        if (ans == mid + 1)
+            ans = queryL(rs(k), x, ax);
+        return ans;
+    }
+
+    int queryR(int k, int x, T ax)
+    {
+        if (t[k].w < ax)
+            return t[k].l - 1;
+        if (t[k].l == t[k].r)
+            return t[k].r;
+        int mid = (t[k].l + t[k].r) >> 1;
+        if (x <= mid)
+            return queryR(ls(k), x, ax);
+        int ans = queryR(rs(k), x, ax);
+        if (ans == mid)
+            ans = queryR(ls(k), x, ax);
+        return ans;
+    }
+
     node queryNode(int l, int r, int k = 1)
     {
         if (l <= t[k].l && r >= t[k].r)
@@ -89,8 +115,5 @@ struct seg
         return queryNode(l, r, ls(k)) + queryNode(l, r, rs(k));
     }
 
-    T query(int l, int r, int k = 1)
-    {
-        return queryNode(l, r, k).w;
-    }
+    T query(int l, int r, int k = 1) { return queryNode(l, r, k).w; }
 };

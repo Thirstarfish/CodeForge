@@ -1,11 +1,7 @@
-uint64_t hqr()
-{
-    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-    seed ^= std::random_device{}();
-    static thread_local std::mt19937_64 generator(seed);
-    return generator();
-}
+static random_device rd;
+static mt19937 g(rd());
 
-random_device rd;
-mt19937 g(rd());
 shuffle(a.begin() + 1, a.end(), g); // 随机打乱数组
+
+uniform_real_distribution<double> dist01(0.0, 1.0); // [0,1)
+uniform_real_distribution<double> dist11(-1.0, 1.0); // [-1,1)

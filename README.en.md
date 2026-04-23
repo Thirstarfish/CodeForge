@@ -36,7 +36,8 @@ Every `.cpp` is self-contained—just drop it into your project.
 g++ -std=c++23 -O2 -Wall -Wextra -o main filename.cpp && ./a.out
 ```
 **Notes**  
-- C++23 or higher is required  
+- The header file might be required (in the misc directory)
+- C++23 or higher might be required  
 - Templates using `__int128` need judge support; fallback to `long long` if not available
 
 ## Update Cadence

@@ -46,7 +46,7 @@ struct dinic
         return false;
     }
 
-    int dfs(int u, int t, double f)
+    double dfs(int u, int t, double f)
     {
         if (u == t)
             return f;
@@ -63,7 +63,7 @@ struct dinic
                 e[j].sec -= temp;
                 e[j ^ 1].sec += temp;
                 r -= temp;
-                if (r == 0)
+                if (r <= eps)
                     return f;
             }
         }
@@ -72,7 +72,7 @@ struct dinic
 
     double work(int s, int t)
     {
-        int ans = 0;
+        double ans = 0;
         while (bfs(s, t))
         {
             cur.assign(n + 1, 0);

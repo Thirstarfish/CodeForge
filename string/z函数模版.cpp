@@ -1,46 +1,31 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define endl '\n'
-#define vec vector
-#define fir first
-#define sec second
-#define pb push_back
-#define pf push_front
-#define ppb pop_back
-#define ppf pop_front
-#define mxe max_element
-#define mne min_element
-#define ppc __builtin_popcount
-#define ctz __builtin_ctz
-#define clz __builtin_clz // 二进制前导零的个数
-#define pcs(n) cout << fixed << setprecision(n)
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-typedef tuple<int, int, int> tiii;
-typedef unsigned long long ull;
-typedef __int128_t lll;
-const int mod = 1e9 + 7;
-const int N = 100005;
-const int inf = 2e9 + 10;
-const int bs = 433;
-const int dir[4][2] = {1, 0, 0, 1, -1, 0, 0, -1};
-vector<int> calc_z(const string &s)
-{
-    int n = s.size();
-    vector<int> z(n);
-    int box_l = 0, box_r = 0;
-    for (int i = 1; i < n; i++)
+    string a, b;
+    int n = b.size(), m = a.size();
+    vector<int> z(n), p(m);  //z:b与b的每一个后缀的LCP长度   p:b与a的每一个后缀的LCP长度
+    z[0] = n;
+    for (int i = 1, l = 0, r = 0; i < n; i++)
     {
-        if (i <= box_r)
-            z[i] = min(z[i - box_l], box_r - i + 1);
-        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
-        {
-            box_l = i;
-            box_r = i + z[i];
+        if (i <= r)
+            z[i] = min(z[i - l], r - i + 1);
+        while (i + z[i] < n && b[z[i]] == b[i + z[i]])
             z[i]++;
+        if (i + z[i] - 1 > r)
+        {
+            l = i;
+            r = i + z[i] - 1;
         }
     }
-    z[0] = n;
-    return z;
-}
+    
+    while (p[0] < m && p[0] < n && a[p[0]] == b[p[0]])
+        p[0]++;
+    for (int i = 1, l = 0, r = 0; i < m; i++)
+    {
+        if (i <= r)
+            p[i] = min(z[i - l], r - i + 1);
+        while (i + p[i] < m && p[i] < n && b[p[i]] == a[i + p[i]])
+            p[i]++;
+        if (i + p[i] - 1 > r)
+        {
+            l = i;
+            r = i + p[i] - 1;
+        }
+    }

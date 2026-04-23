@@ -19,17 +19,15 @@ struct Zmod
 
     static constexpr int norm(int x)
     {
-        if (x < 0) x += MOD;
-        if (x >= MOD) x -= MOD;
+        if (x < 0)
+            x += MOD;
+        if (x >= MOD)
+            x -= MOD;
         return x;
     }
 
     constexpr int val() const { return x; }
-
-    constexpr Zmod operator-() const
-    {
-        return Zmod(MOD - x);
-    }
+    constexpr Zmod operator-() const { return Zmod(MOD - x); }
 
     constexpr Zmod inv() const
     {
@@ -96,7 +94,4 @@ constexpr int MOD[] = {998244353, 1000000007};
 using Z = Zmod<MOD[0]>;
 
 /* 示例：2^n */
-Z power(int n)
-{
-    return fpow(Z(2), n);
-}
+Z power(int n) { return fpow(Z(2), n); }

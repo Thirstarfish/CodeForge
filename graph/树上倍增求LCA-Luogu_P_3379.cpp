@@ -77,10 +77,8 @@ void cold_beans()
         if (a == b)
             return a;
         for (int i = 19; i >= 0; i--)
-        {
-            if (dep[a] > 1 << i && st[i][a] != st[i][b])
+            if (st[i][a] != st[i][b])
                 a = st[i][a], b = st[i][b];
-        }
         return st[0][a];
     };
     while (m--)

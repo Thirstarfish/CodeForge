@@ -84,28 +84,4 @@ struct dinic
             ret.pb({e[i ^ 1][0], e[i][0], e[i ^ 1][1], e[i ^ 1][1] + e[i][1]});
         return ret;
     }
-
-    // 返回残量网络中从 s 可达的点
-    vec<char> reachable(int s)
-    {
-        vec<char> vis(n + 1, 0);
-        queue<int> q;
-        q.push(s);
-        vis[s] = 1;
-        while (!q.empty())
-        {
-            int u = q.front();
-            q.pop();
-            for (auto id : g[u])
-            {
-                auto &[v, c] = e[id];
-                if (c > 0 && !vis[v])
-                {
-                    vis[v] = 1;
-                    q.push(v);
-                }
-            }
-        }
-        return vis;
-    }
 };
